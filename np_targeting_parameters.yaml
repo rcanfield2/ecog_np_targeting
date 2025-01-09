@@ -1,0 +1,39 @@
+# Paths 
+- preproc_dir: '/media/moor-data/preprocessed.new/'
+  raw_dir: 16
+
+
+
+# Spike binning & smoothing parameters
+  spike_bin_width: 0.01 # [s]
+  smoothing_width: 150  # [ms]
+
+
+# Experimental parameters
+implants:
+  - 'NP_Insert72'
+  - 'NP_Insert173'
+start_date:
+  'affi': '2023-10-29'
+  'beignet': '2023-7-13'
+end_date:
+  'affi': '2024-09-27'
+  'beignet': '2024-02-05'
+
+
+
+# Bad task entries
+bad_tes:
+  'affi':
+    - 
+  'beignet':
+    - 13152 #1
+    - 13153 #2
+    - 13154 #3
+    - 13155 #4
+    - 13156 #5
+    - 13272 #6
+    - 12290 #7
+    - 12291 #8
+    - 13102 #9
+    - 11971 #10
