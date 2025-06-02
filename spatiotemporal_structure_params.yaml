@@ -15,15 +15,18 @@ save_paths:
     3: "/media/moor-data/results/Ryan/spatiotemporal_structure/figures/figure3"
     4: "/media/moor-data/results/Ryan/spatiotemporal_structure/figures/figure4"
     5: "/media/moor-data/results/Ryan/spatiotemporal_structure/figures/figure5"
+    'supplemental': "/media/moor-data/results/Ryan/spatiotemporal_structure/figures/supplemental"
 
 filenames:
   preprocessed: "np_preprocessed"
+  postproc: "np_postproc"
   behavior: "behavior"
   ecog_interp: "npinsert_ecog_decoding"
   unit_quality: "QCunits"
   pseudopopulation: "np_pseudopopulations"
   lda_result: "lda_results"
   population_result: "population_result"
+  ks_drift: "ks_drift"
 
 
 data_selection_parameters:
@@ -130,13 +133,15 @@ data_selection_parameters:
   filter_trials_by_eye: False
 
 postproc_data_parameters:
-  
   drive_alignment_theta:
     beignet: 0
     affi: 90
   rc_axis_theta:
     beignet: 0
-    affi: 0
+    affi: 30
+  rc_chamber_offset:
+    beignet: 0
+    affi: -4
   tbefore: 0.5
   tafter: 1
   bin_width: 0.01  # [s]
@@ -175,7 +180,8 @@ analysis_parameters:
   nfolds: 4
   niterations: 1000
   nunits_column: 25
-  nunits_lda_depth: 5
+  nunits_lda_depth: 25
+  nunits_lda_depth_site: 5
   nunits_across_events: 30
   nunits_cca: 50
   npcs: 10
@@ -192,6 +198,13 @@ analysis_parameters:
   - 'p' # Good decoding only during preparation
   - 'm' # Good decoding only during movement
   - 'p+m' # Good decoding during both preparation and movement.
+  example_site_psth:
+    subject: 'beignet'
+    recs: [2,15]
+    unit_ids: [[1,3,4,5], [0,1,7,8]]
+  example_site_cca:
+    subject: 'beignet'
+    recs: [12,15]
 
 
 visualization_parameters:

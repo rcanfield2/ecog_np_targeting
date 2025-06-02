@@ -1,0 +1,241 @@
+data_paths:
+  preprocessed: '/media/moor-data/preprocessed.new/'
+  raw: '/media/moor-data/raw/neuropixels/'
+  kilosort: '/media/moor-data/preprocessed/kilosort'
+
+save_paths:
+  postproc_data: "/media/moor-data/results/Ryan/spatiotemporal_structure/np_analysis_preproc_data"
+  ecog_maps: "/media/moor-data/results/Ryan/spatiotemporal_structure/ecog_decoding_maps"
+  behavior: "/media/moor-data/results/Ryan/spatiotemporal_structure/figures/behavior"
+  unit_quality: "/media/moor-data/results/Ryan/spatiotemporal_structure/figures/unit_quality"
+  dynamics: "/media/moor-data/results/Ryan/spatiotemporal_structure/figures/dynamics"
+  figure: 
+    1: "/media/moor-data/results/Ryan/spatiotemporal_structure/figures/figure1"
+    2: "/media/moor-data/results/Ryan/spatiotemporal_structure/figures/figure2"
+    3: "/media/moor-data/results/Ryan/spatiotemporal_structure/figures/figure3"
+    4: "/media/moor-data/results/Ryan/spatiotemporal_structure/figures/figure4"
+    5: "/media/moor-data/results/Ryan/spatiotemporal_structure/figures/figure5"
+    'supplemental': "/media/moor-data/results/Ryan/spatiotemporal_structure/figures/supplemental"
+
+filenames:
+  preprocessed: "np_preprocessed"
+  postproc: "np_postproc"
+  behavior: "behavior"
+  ecog_interp: "npinsert_ecog_decoding"
+  unit_quality: "QCunits"
+  pseudopopulation: "np_pseudopopulations"
+  lda_result: "lda_results"
+  population_result: "population_result"
+  ks_drift: "ks_drift"
+
+
+data_selection_parameters:
+  subjects:
+    - 'beignet'
+    - 'affi'
+  implant_names:
+    - 'NP_Insert72'
+    - 'NP_Insert137'
+  start_date: 
+    beignet: '2023-07-13'
+    affi: '2023-10-29'
+  end_date: 
+    beignet: '2024-02-05'
+    affi: '2024-09-27'  
+  task_coords: 'yzx'
+  task_perturb: None
+  task_rotation: 0
+  task_metadata:
+    - 'target_radius'
+    - 'neuropixel_port1_site'
+    - 'neuropixel_port2_site'
+    - 'neuropixel_port1_drive_type'
+  bad_tes:
+    beignet:
+      - 9923
+      - 9931
+      - 13152
+      - 13153
+      - 13154
+      - 13155
+      - 13156
+      - 13272
+      - 12290
+      - 12291
+      - 11971
+
+    affi:
+      - 11971
+      - 11974
+      - 11981
+      - 11982
+      - 11999
+      - 12001
+      - 12013
+      - 12016
+      - 12027
+      - 12028
+      - 12385
+      - 12389
+      - 12390
+      - 12391
+      - 12392
+      - 12393
+      - 12394
+      - 12396
+      - 12397
+      - 17294
+      - 17296
+      - 17297
+      - 17299
+      - 17301
+      - 17302
+      - 17303
+      - 17304
+      - 17305
+      - 17316
+      - 17318
+      - 17319
+      - 17547
+      - 17548
+      - 17552
+      - 17558
+      - 12365
+      - 12000
+      - 18161
+      - 18162
+      - 18164
+      - 18169
+      - 18202
+      - 18204
+      - 18205
+      - 18320
+      - 18408
+      - 18409
+      - 18166
+      - 18415
+      - 18416
+      - 18417
+      - 18418
+      - 18419
+  te_start_times: # Manually selected from drift maps
+    18223: 60  # [s]
+    18274: 30  # [s]
+    18371: 150 # [s]
+    18377: 300 # [s]
+    18379: 250 # [s]
+    18396: 475 # [s]
+  min_trials_to_target: 30  # If None, will automatically update
+  success_rate_window: 19
+  reach_time_std_thresh: 3
+  eye_targ_buffer: 2.5 # [cm]
+  filter_trials_by_prep_time: False
+  filter_trials_by_eye: False
+
+postproc_data_parameters:
+  drive_alignment_theta:
+    beignet: 0
+    affi: 90
+  rc_axis_theta:
+    beignet: 0
+    affi: 30
+  rc_chamber_offset:
+    beignet: 0
+    affi: -4
+  tbefore: 0.5
+  tafter: 1
+  bin_width: 0.01  # [s]
+  exp_samplerate: 1000 # [Hz]
+  smooth_width: 50
+  smooth_nstd: 3
+  align_events:
+  - 'TARGET ONSET'
+  - 'MOVEMENT ONSET'
+  align_event_keys:
+  - 'delay_start_time'
+  - 'reach_end_time'
+  raster_types:
+  - 'neural'
+  - 'cursor_pos'
+  - 'cursor_velo'
+
+unit_quality_metric_parameters:
+  seconds_per_batch: 2
+  epoch_size: 10 #[s]
+  min_trial_prop: 1
+  min_refractory_period: 1
+  isi_perc_thresh: 1 #[%]
+  isi_time_period: 1 #[ms]
+  wf_amp_thresh: 50
+  low_bin_thresh: 0.1
+  uhq_std_thresh: 5
+
+analysis_parameters:
+  align_events:
+  - 'MOVEMENT ONSET'
+  cursor_corr_tbefore: 0.1
+  cursor_corr_tafter: 0.4
+  tstart: -0.05 # Start time for averaging around the event of interest
+  tend: 0.25 # End time for averaging around the event of interest
+  nfolds: 4
+  niterations: 1000
+  nunits_column: 25
+  nunits_lda_depth: 25
+  nunits_lda_depth_site: 5
+  nunits_across_events: 30
+  nunits_cca: 50
+  npcs: 10
+  nmodes_avg_cca: 4 # Number of modes to average correlation of from CCA
+  depth_range: 1000 #[um] How many um are in each range
+  depth_step: 250 #[um] How much the depth ranges advance by
+  depth_max: 3840 # Length of channel bank recorded from
+  min_site_depths: 5 # Minimum number of depths with enough units to perform decodign . 
+  unit_adding_max_units: 300 
+  unit_adding_unit_step: 5
+  nneighbors: 1 # Number of neighboring sites to use to compute the average neighboring CCA correlation
+  functional_group_names:
+  - 'bd' # Bad decoding
+  - 'p' # Good decoding only during preparation
+  - 'm' # Good decoding only during movement
+  - 'p+m' # Good decoding during both preparation and movement.
+  example_site_psth:
+    subject: 'beignet'
+    recs: [2,15]
+    unit_ids: [[1,3,4,5], [0,1,7,8]]
+  example_site_cca:
+    subject: 'beignet'
+    recs: [12,15]
+
+
+visualization_parameters:
+  nmodes_plot: 3 # Number of modes to plot when looping through.
+  colors:
+    beignet: 'purple'
+    affi: 'salmon'
+    example_sites:
+      1: [0.5, 0.25, 0.75]
+      2: [0.5, 0.25, 0.25]
+    random_units: 'Gray'
+  poster_settings: # Default settings applied to matplotlib plots
+    xtick.labelsize: 24
+    ytick.labelsize: 24
+    axes.labelsize: 28
+    axes.titlesize: 28
+    lines.linewidth: 6
+    axes.spines.top: false
+    axes.spines.right: false
+  paper_settings:
+    xtick.labelsize: 8
+    ytick.labelsize: 8
+    axes.labelsize: 10
+    axes.titlesize: 10
+    lines.linewidth: 2
+    axes.spines.top: false
+    axes.spines.right: false
+  figure_sizes:
+    poster:
+      - small: [8,4]
+      - large: [12, 8]
+    paper:
+      - small: [4,3]
+      - large: [6.8, 5]
