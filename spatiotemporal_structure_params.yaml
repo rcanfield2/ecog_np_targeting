@@ -53,6 +53,7 @@ data_selection_parameters:
   bad_tes:
     beignet:
       - 9923
+      - 9925 # Second from day
       - 9931
       - 13152
       - 13153
@@ -76,6 +77,7 @@ data_selection_parameters:
       - 12027
       - 12028
       - 12385
+      - 12386 # second from day
       - 12389
       - 12390
       - 12391
@@ -96,6 +98,7 @@ data_selection_parameters:
       - 17316
       - 17318
       - 17319
+      - 17543 # second from day
       - 17547
       - 17548
       - 17552
